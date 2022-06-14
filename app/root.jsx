@@ -1,4 +1,4 @@
-import styles from './styles/app.css'
+import styles from './tailwind.css'
 import Navbar from './components/Navbar'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix'
 

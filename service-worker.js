@@ -15,14 +15,14 @@ new Prefetcher({
         maxMatches: 20,
         attribute: 'src',
         as: 'image',
-        callback: deepFetchImage,
+        callback: deepFetchAssets,
       },
       {
         selector: 'script',
         maxMatches: 20,
         attribute: 'src',
         as: 'script',
-        callback: deepFetchJS,
+        callback: deepFetchAssets,
       },
       {
         selector: '[rel="stylesheet"]',
@@ -55,28 +55,12 @@ new Prefetcher({
   .cache(/^https:\/\/(.*?)\.link\/.*/)
 
 function deepFetchAssets({ $el, el, $ }) {
-  var urlTemplate = $(el).attr('href')
-  console.log($(el), urlTemplate)
+  let urlTemplate = $(el).attr('href')
   if (urlTemplate) {
-    console.log(`\n[][][][]\nPrefetching Asset: ${urlTemplate}\n[][][][]\n`)
-    prefetch(urlTemplate, 'style')
+    prefetch(urlTemplate)
   }
-}
-
-function deepFetchJS({ $el, el, $ }) {
-  var urlTemplate = $(el).attr('src')
-  console.log($(el), urlTemplate)
+  urlTemplate = $(el).attr('src')
   if (urlTemplate) {
-    console.log(`\n[][][][]\nPrefetching JS: ${urlTemplate}\n[][][][]\n`)
-    prefetch(urlTemplate, 'script')
-  }
-}
-
-function deepFetchImage({ $el, el, $ }) {
-  var urlTemplate = $(el).attr('src')
-  console.log($(el), urlTemplate)
-  if (urlTemplate) {
-    console.log(`\n[][][][]\nPrefetching Image: ${urlTemplate}\n[][][][]\n`)
-    prefetch(urlTemplate, 'image')
+    prefetch(urlTemplate)
   }
 }

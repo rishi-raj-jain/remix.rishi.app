@@ -5,7 +5,6 @@ node_modules
 /public/build
 .env
 
-# Layer0 generated build directory
 .layer0
 
 /public/service-worker.js
@@ -14,4 +13,9 @@ node_modules
 
 toInclude.json
 
-build
+/build
+/public/build
+
+/app/tailwind.css
+
+publicPaths.js

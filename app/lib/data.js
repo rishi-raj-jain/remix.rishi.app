@@ -4,7 +4,7 @@ export const defaultTitle = 'Rishi Raj Jain - Software Engineer, Developer, Desi
 
 export const deploymentUrl = process.env.NODE_ENV == 'production' ? 'https://rishi.app' : 'https://rishi.app'
 
-export const imageLink = 'https://rishi-raj-jain-html-og-image-default.layer0.link'
+export const imageLink = 'https://rishi-raj-jain-html-og-image-default.layer0-limelight.link'
 
 export const profileLinks = {
   twitter: 'https://twitter.com/rishi_raj_jain_',

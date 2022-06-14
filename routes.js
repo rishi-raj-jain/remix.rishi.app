@@ -3,6 +3,7 @@ const ONE_HOUR = 60 * ONE_MINUTE
 const ONE_DAY = 24 * ONE_HOUR
 const ONE_YEAR = 365 * ONE_DAY
 
+const { publicPaths } = require('./publicPaths')
 const { Router } = require('@layer0/core/router')
 
 const pageCache = {
@@ -25,7 +26,16 @@ const assetCache = {
   },
 }
 
-module.exports = new Router()
+const router = new Router()
+
+publicPaths.forEach((i) => {
+  router.get(i, ({ cache, serveStatic }) => {
+    cache(assetCache)
+    serveStatic(`public/${i}`)
+  })
+})
+
+router
   .match('/', ({ cache }) => {
     cache(pageCache)
   })
@@ -67,3 +77,5 @@ module.exports = new Router()
       },
     })
   )
+
+export default router

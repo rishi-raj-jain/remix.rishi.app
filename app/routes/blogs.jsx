@@ -42,13 +42,13 @@ const Blogs = () => {
                 <span className="dark:text-gray-400 text-gray-700">
                   <DateString date={new Date(item.first_published_at)} />
                 </span>
-                <Prefetch url={`/blog/${item.slug}?_data=routes%2Fblog%2F%24slug`}>
+                <Prefetch url={`/blog/${item.slug}?_data=${encodeURIComponent('routes/blog/$slug')}`}>
                   <Link to={`/blog/${item.slug}`} className="mt-3 hover:underline">
                     <span className="font-bold text-lg sm:text-2xl">{item.content.title}</span>
                   </Link>
                 </Prefetch>
                 <span className="mt-3 dark:text-gray-400 text-gray-700 line-clamp-2 text-sm">{item.content.intro}</span>
-                <Prefetch url={`/blog/${item.slug}?_data=routes%2Fblog%2F%24slug`}>
+                <Prefetch url={`/blog/${item.slug}?_data=${encodeURIComponent('routes/blog/$slug')}`}>
                   <Link to={`/blog/${item.slug}`} className="hover:underline text-blue-500 mt-5 uppercase text-sm">
                     Read More &rarr;
                   </Link>

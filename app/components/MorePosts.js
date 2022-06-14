@@ -11,7 +11,7 @@ const MorePosts = ({ morePosts }) => {
           <span> More Posts &rarr; </span>
         </div>
         {filteredPosts.map((item) => (
-          <Prefetch key={item.slug} url={`/blog/${item.slug}?_data=routes%2Fblog%2F%24slug`}>
+          <Prefetch key={item.slug} url={`/blog/${item.slug}?_data=${encodeURIComponent('routes/blog/$slug')}`}>
             <Link to={`/blog/${item.slug}`} className="hover:underline mb-5 block w-full font-bold text-lg">
               {item.name}
             </Link>

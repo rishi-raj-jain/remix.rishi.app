@@ -28,7 +28,7 @@ const SearchBar = ({ content }) => {
       {searcValue.length > 0 && results.length > 0 && (
         <div className="mt-2 shadow top-10">
           {results.map((item) => (
-            <Prefetch key={item.slug} url={`/blog/${item.slug}?_data=routes%2Fblog%2F%24slug`}>
+            <Prefetch key={item.slug} url={`/blog/${item.slug}?_data=${encodeURIComponent('routes/blog/$slug')}`}>
               <Link to={`/blog/${item.slug}`} className="py-3 px-5 border-t flex flex-col">
                 <span className="py-1 font-bold text-md">{item.content.title}</span>
                 <span className="py-1 text-sm">{item.content.intro}</span>
