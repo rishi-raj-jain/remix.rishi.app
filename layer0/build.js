@@ -5,6 +5,8 @@ const { DeploymentBuilder } = require('@layer0/core/deploy')
 const appDir = process.cwd()
 const builder = new DeploymentBuilder(appDir)
 
+const esbuildOriginal = require('esbuild')
+
 const rewire = require('rewire')
 const { exit } = require('process')
 const esbuild = rewire('esbuild')
@@ -21,9 +23,9 @@ module.exports = async function build(options) {
     await builder.exec(command)
 
     // Compile the service worker
-    esbuild.build({
-      entryPoints: ['./service-worker.js'],
-      outfile: `${builder.layer0Dir}/s3/public/service-worker.js`,
+    esbuildOriginal.build({
+      entryPoints: [`${appDir}/service-worker.js`],
+      outfile: `${builder.staticAssetsDir}/public/service-worker.js`,
       minify: true,
       bundle: true,
       define: {
