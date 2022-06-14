@@ -1,0 +1,17 @@
+node_modules
+
+/.cache
+/server/build
+/public/build
+.env
+
+# Layer0 generated build directory
+.layer0
+
+/public/service-worker.js
+
+.DS_Store
+
+toInclude.json
+
+build

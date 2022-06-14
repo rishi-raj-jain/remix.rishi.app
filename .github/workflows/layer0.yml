@@ -1,0 +1,20 @@
+name: Deploy to default Layer0
+
+on:
+  push:
+    branches:
+      - remix
+
+jobs:
+  deploy-to-layer0:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://npm-proxy.fury.io/moovweb/
+      - run: npm i
+      - run: npm run layer0:deploy --token=$LAYER0_DEPLOY_TOKEN
+        env:
+          LAYER0_DEPLOY_TOKEN: ${{secrets.LAYER0_DEPLOY_TOKEN}}
