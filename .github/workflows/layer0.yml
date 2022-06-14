@@ -3,7 +3,7 @@ name: Deploy to default Layer0
 on:
   push:
     branches:
-      - remix
+      - master
 
 jobs:
   deploy-to-layer0:
