@@ -6,6 +6,8 @@ const ONE_YEAR = 365 * ONE_DAY
 const { publicPaths } = require('./publicPaths')
 const { Router } = require('@layer0/core/router')
 
+console.log(publicPaths)
+
 const pageCache = {
   edge: {
     maxAgeSeconds: ONE_HOUR,
