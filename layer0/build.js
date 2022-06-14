@@ -23,7 +23,7 @@ module.exports = async function build(options) {
     // Compile the service worker
     esbuild.build({
       entryPoints: ['./service-worker.js'],
-      outfile: './public/service-worker.js',
+      outfile: `${builder.layer0Dir}/s3/public/service-worker.js`,
       minify: true,
       bundle: true,
       define: {
