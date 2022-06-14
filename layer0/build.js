@@ -21,7 +21,7 @@ module.exports = async function build(options) {
     await builder.exec(command)
 
     // Compile the service worker
-    build({
+    esbuild.build({
       entryPoints: ['./service-worker.js'],
       outfile: './public/service-worker.js',
       minify: true,
