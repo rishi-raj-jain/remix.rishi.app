@@ -21,10 +21,19 @@ module.exports = async function build(options) {
     await builder.exec(command)
 
     // Compile the service worker
-    command = 'node compileSW.js'
-    await builder.exec(command)
+    build({
+      entryPoints: ['./service-worker.js'],
+      outfile: './public/service-worker.js',
+      minify: true,
+      bundle: true,
+      define: {
+        'process.env.NODE_ENV': '"production"',
+        'process.env.LAYER0_PREFETCH_HEADER_VALUE': '"1"',
+        'process.env.LAYER0_PREFETCH_CACHE_NAME': '"prefetch"',
+      },
+    }).catch(() => process.exit(1))
 
-    // Compile the service worker
+    // Conpute the public paths for router
     command = 'node getPublicPaths.js'
     await builder.exec(command)
 
