@@ -1,0 +1,20 @@
+html {
+  scroll-behavior: smooth;
+}
+.heading_hover_hash:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.remark-highlight {
+  width: 75vw;
+}
+@media screen and (max-width: 768px) {
+  .remark-highlight {
+    width: 95vw;
+  }
+}
+article > *:not(.remark-highlight) {
+  text-align: left;
+  align-self: flex-start;
+  content-visibility: auto;
+}
