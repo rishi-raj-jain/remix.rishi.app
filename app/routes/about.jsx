@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import Heart from '../components/Heart'
+import { defer } from '@remix-run/node'
 import Layout from '../components/Layout'
-import { useLoaderData } from '@remix-run/react'
 import { Storyblok } from '../lib/storyblok.server'
+import { Await, useLoaderData } from '@remix-run/react'
 
 export async function loader() {
   try {
@@ -14,10 +16,11 @@ export async function loader() {
       })
       let stories = res.data.stories
       stories.forEach((story) => {
+        const renderedText = client.richTextResolver.render(story.content.Description)
         if (Timeline.hasOwnProperty(story.content.Year)) {
-          Timeline[story.content.Year].push({ ...story, renderedText: client.richTextResolver.render(story.content.Description) })
+          Timeline[story.content.Year].push({ ...story, renderedText })
         } else {
-          Timeline[story.content.Year] = [{ ...story, renderedText: client.richTextResolver.render(story.content.Description) }]
+          Timeline[story.content.Year] = [{ ...story, renderedText }]
         }
       })
       let total = res.total
@@ -28,9 +31,17 @@ export async function loader() {
       }
     }
     await getStories(1, Storyblok)
-    const { data } = await Storyblok.get('cdn/stories/taglines/about')
-    const aboutTagline = Storyblok.richTextResolver.render(data.story.content.Text)
-    return { Timeline, aboutTagline }
+    return defer({
+      Timeline,
+      aboutTagline: new Promise(async (resolve, reject) => {
+        try {
+          const { data } = await Storyblok.get('cdn/stories/taglines/about')
+          resolve(Storyblok.richTextResolver.render(data.story.content.Text))
+        } catch (e) {
+          reject(e)
+        }
+      }),
+    })
   } catch (e) {
     console.log(e)
     throw new Response('Not Found', {
@@ -46,7 +57,16 @@ const About = () => {
       <div class="flex w-full flex-col items-center text-[14px]">
         <div class="mt-10 flex w-[90vw] max-w-[540px] flex-col">
           <h1 class="text-3xl font-bold text-zinc-700 dark:text-gray-300">About Me</h1>
-          <div className="mt-2 font-light text-slate-600 dark:text-slate-400" dangerouslySetInnerHTML={{ __html: aboutTagline }} />
+          <Suspense fallback={<p className="mt-2 font-light text-slate-600 dark:text-slate-400">Loading about Rishi...</p>}>
+            <Await
+              resolve={aboutTagline}
+              errorElement={<p className="mt-2 font-light text-slate-600 dark:text-slate-400">Error loading about of Rishi!</p>}
+            >
+              {(aboutTagline) => (
+                <div className="mt-2 font-light text-slate-600 dark:text-slate-400" dangerouslySetInnerHTML={{ __html: aboutTagline }} />
+              )}
+            </Await>
+          </Suspense>
           <h2 class="mt-16 text-3xl font-bold text-zinc-700 dark:text-gray-300">My Timeline</h2>
           {Object.keys(Timeline)
             .sort((a, b) => (a > b ? -1 : 1))
