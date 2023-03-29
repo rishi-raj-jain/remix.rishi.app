@@ -1,4 +1,4 @@
-import { themeChangeListener } from '../lib/themeChangeListener.client'
+import { themeChangeListener } from '~/lib/themeChangeListener.client'
 
 export default function Toggle() {
   const toggleTheme = () => {

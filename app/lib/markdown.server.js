@@ -1,4 +1,9 @@
 import { load } from 'cheerio'
+import prism from 'remark-prism'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
 
 export const addCopyToCode = (text) => {
   const $ = load(`<html><head></head><body>${text}</body></html>`)
@@ -16,4 +21,21 @@ export const addCopyToCode = (text) => {
     `)
   })
   return $('body').html()
+}
+
+const highlightHref = (text) => {
+  const $ = load(`<html><head></head><body>${text}</body></html>`)
+  $('a').each((_, i) => {
+    $(i).addClass('text-blue-600')
+  })
+  return $('body').html()
+}
+
+export default async function MD_TO_HTML(markdown, highlightHrefs = false) {
+  let result = await unified().use(remarkParse).use(prism).use(remarkRehype).use(rehypeStringify).process(markdown)
+  result = addCopyToCode(result.toString())
+  if (highlightHrefs) {
+    result = highlightHref(result)
+  }
+  return result
 }
