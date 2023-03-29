@@ -107,19 +107,21 @@ export default function Blogs() {
                 errorElement={<p className="mt-2 font-light text-slate-600 dark:text-slate-400">Error loading Rishi's Recommended Posts</p>}
               >
                 {(recommendedPosts) =>
-                  recommendedPosts.map((item) => (
-                    <a
-                      rel="noreferrer"
-                      target="_blank"
-                      key={item.content.Title}
-                      href={item && item.content ? item.content.Url.url : ''}
-                      className={`mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400 ${
-                        item && item.content ? '' : 'animate-pulse bg-gray-500 dark:bg-gray-400'
-                      }`}
-                    >
-                      {item && item.content ? item.content.Title : 'placeholder title'}
-                    </a>
-                  ))
+                  recommendedPosts.map(
+                    (item) =>
+                      item &&
+                      item.content && (
+                        <a
+                          target="_blank"
+                          rel="noreferrer"
+                          key={item.content.Title}
+                          href={item.content.Url.url}
+                          className={`mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400`}
+                        >
+                          {item.content.Title}
+                        </a>
+                      )
+                  )
                 }
               </Await>
             </Suspense>
