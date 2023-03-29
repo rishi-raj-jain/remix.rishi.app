@@ -1,7 +1,7 @@
-import Layout from '../components/Layout'
+import Layout from '~/components/Layout'
 import { useLoaderData } from '@remix-run/react'
-import { Storyblok } from '../lib/storyblok.server'
-import SocialLinks from '../components/SocialLinks'
+import { Storyblok } from '~/lib/storyblok.server'
+import SocialLinks from '~/components/SocialLinks'
 
 export async function loader() {
   try {

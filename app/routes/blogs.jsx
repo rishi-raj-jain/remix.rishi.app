@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 import { defer } from '@remix-run/node'
 import { ClientOnly } from 'remix-utils'
-import Layout from '../components/Layout'
-import { Storyblok } from '../lib/storyblok.server'
-import SearchBar from '../components/SearchBar.client'
+import Layout from '~/components/Layout'
+import { Storyblok } from '~/lib/storyblok.server'
+import SearchBar from '~/components/SearchBar.client'
 import { Await, useLoaderData } from '@remix-run/react'
-import DateString from '../components/DateString.client'
+import DateString from '~/components/DateString.client'
 
 export async function loader() {
   return defer({

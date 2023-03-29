@@ -1,16 +1,16 @@
-import dark from '../dark.css'
+import dark from '~/dark.css'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkPrism from 'remark-prism'
 import { ClientOnly } from 'remix-utils'
 import remarkRehype from 'remark-rehype'
-import Layout from '../components/Layout'
-import Author from '../components/Author'
+import Layout from '~/components/Layout'
+import Author from '~/components/Author'
 import rehypeStringify from 'rehype-stringify'
 import { useLoaderData } from '@remix-run/react'
-import { Storyblok } from '../lib/storyblok.server'
-import { addCopyToCode } from '../lib/markdown.server'
-import DateString from '../components/DateString.client'
+import { Storyblok } from '~/lib/storyblok.server'
+import { addCopyToCode } from '~/lib/markdown.server'
+import DateString from '~/components/DateString.client'
 
 export const links = () => [{ rel: 'stylesheet', href: dark }]
 

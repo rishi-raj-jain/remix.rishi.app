@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
-import Heart from '../components/Heart'
+import Heart from '~/components/Heart'
 import { defer } from '@remix-run/node'
-import Layout from '../components/Layout'
-import { Storyblok } from '../lib/storyblok.server'
+import Layout from '~/components/Layout'
+import { Storyblok } from '~/lib/storyblok.server'
 import { Await, useLoaderData } from '@remix-run/react'
 
 export async function loader() {
