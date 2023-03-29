@@ -14,7 +14,7 @@ export async function loader() {
         const { data } = await Storyblok.get('cdn/stories/taglines/blogs')
         resolve(Storyblok.richTextResolver.render(data.story.content.Text))
       } catch (e) {
-        console.log(e)
+        console.log(e.message || e.toString())
         reject(e)
       }
     }),
@@ -38,7 +38,7 @@ export async function loader() {
         await getPosts(1, Storyblok)
         resolve(Posts)
       } catch (e) {
-        console.log(e)
+        console.log(e.message || e.toString())
         reject(e)
       }
     }),
@@ -47,7 +47,7 @@ export async function loader() {
         const { data } = await Storyblok.get('cdn/stories', { page: 1, per_page: 100, starts_with: 'recommended/' })
         resolve(data.stories)
       } catch (e) {
-        console.log(e)
+        console.log(e.message || e.toString())
         reject(e)
       }
     }),
@@ -78,33 +78,24 @@ export default function Blogs() {
           <div className="mt-10 flex w-full flex-col lg:mt-20 lg:w-2/3 lg:pr-10">
             {allPosts.map((item, _) => (
               <div key={_} className="mb-10 flex flex-col border-b pb-10 dark:border-gray-700">
-                <span
-                  id={`first_published_at_${_}`}
-                  className={`text-gray-700 dark:text-gray-400 ${
-                    item && item.first_published_at ? '' : 'w-[250px] animate-pulse bg-gray-700 dark:bg-gray-400'
-                  }`}
-                >
-                  {item && item.first_published_at ? <DateString date={new Date(item.first_published_at)} /> : 'placeholder date'}
-                </span>
-                <a
-                  href={item && item.slug ? `/blog/${item.slug}` : ''}
-                  className={`mt-3 text-lg font-bold hover:underline sm:text-2xl ${item && item.slug ? '' : 'animate-pulse bg-black'}`}
-                >
-                  {item && item.content ? item.content.title : 'placeholder title'}
-                </a>
-                <span
-                  className={`mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400 ${
-                    item && item.content ? '' : 'w-[200px] animate-pulse bg-gray-700 dark:bg-gray-400'
-                  }`}
-                >
-                  {item && item.content ? item.content.intro : 'placeholder intro'}
-                </span>
-                <a
-                  href={item && item.slug ? `/blog/${item.slug}` : ''}
-                  className={`mt-5 text-sm uppercase text-blue-500 hover:underline ${item && item.slug ? '' : 'w-[100px] animate-pulse bg-blue-500'}`}
-                >
-                  Read More &rarr;
-                </a>
+                <ClientOnly>
+                  {() => (
+                    <span id={`first_published_at_${_}`} className={`text-gray-700 dark:text-gray-400`}>
+                      {item && item.first_published_at ? <DateString date={new Date(item.first_published_at)} /> : 'placeholder date'}
+                    </span>
+                  )}
+                </ClientOnly>
+                {item && item.content && (
+                  <a href={`/blog/${item.slug}`} className={`mt-3 text-lg font-bold hover:underline sm:text-2xl`}>
+                    {item.content.title}
+                  </a>
+                )}
+                {item && item.content && <span className={`mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400`}>{item.content.intro}</span>}
+                {item && item.slug && (
+                  <a href={`/blog/${item.slug}`} className={`mt-5 text-sm uppercase text-blue-500 hover:underline`}>
+                    Read More &rarr;
+                  </a>
+                )}
               </div>
             ))}
           </div>
