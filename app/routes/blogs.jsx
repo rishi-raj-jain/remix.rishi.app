@@ -86,13 +86,13 @@ export default function Blogs() {
                   )}
                 </ClientOnly>
                 {item && item.content && (
-                  <Link href={`/blog/${item.slug}`} className={`mt-3 text-lg font-bold hover:underline sm:text-2xl`}>
+                  <Link to={`/blog/${item.slug}`} className={`mt-3 text-lg font-bold hover:underline sm:text-2xl`}>
                     {item.content.title}
                   </Link>
                 )}
                 {item && item.content && <span className={`mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400`}>{item.content.intro}</span>}
                 {item && item.slug && (
-                  <Link href={`/blog/${item.slug}`} className={`mt-5 text-sm uppercase text-blue-500 hover:underline`}>
+                  <Link to={`/blog/${item.slug}`} className={`mt-5 text-sm uppercase text-blue-500 hover:underline`}>
                     Read More &rarr;
                   </Link>
                 )}
