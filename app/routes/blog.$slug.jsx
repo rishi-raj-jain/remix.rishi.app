@@ -46,7 +46,6 @@ export default function Blog() {
   const post = useLoaderData()
   useEffect(() => {
     if (typeof window === 'undefined') { return }
-    console.log(window.copyTextToClipboard)
     if (window.copyTextToClipboard) {
       return
     }

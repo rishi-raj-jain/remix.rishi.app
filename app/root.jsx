@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import global from './global.css'
 import styles from './tailwind.css'
+import install from '@edgio/prefetch/window/install'
+import installDevtools from '@edgio/devtools/install'
 import { themeChangeListener } from './lib/themeChangeListener.client'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 
@@ -36,6 +38,8 @@ export default function App() {
       // Set the theme as light / dark
       window.localStorage.setItem('theme', theme)
     }
+    install()
+    installDevtools()
   }, [])
   return (
     <html lang="en">
