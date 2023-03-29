@@ -56,11 +56,11 @@ const About = () => {
   const { Timeline, aboutTagline } = useLoaderData()
   return (
     <Layout>
-      <div class="flex w-full flex-col items-center text-[14px]">
-        <div class="mt-10 flex w-[90vw] max-w-[540px] flex-col">
-          <h1 class="text-3xl font-bold text-zinc-700 dark:text-gray-300">About Me</h1>
+      <div className="flex w-full flex-col items-center text-[14px]">
+        <div className="mt-10 flex w-[90vw] max-w-[540px] flex-col">
+          <h1 className="text-3xl font-bold text-zinc-700 dark:text-gray-300">About Me</h1>
           <div className="mt-2 font-light text-slate-600 dark:text-slate-400" dangerouslySetInnerHTML={{ __html: aboutTagline }} />
-          <h2 class="mt-16 text-3xl font-bold text-zinc-700 dark:text-gray-300">My Timeline</h2>
+          <h2 className="mt-16 text-3xl font-bold text-zinc-700 dark:text-gray-300">My Timeline</h2>
           <Suspense fallback={<p className="mt-2 font-light text-slate-600 dark:text-slate-400">Loading Rishi's Timeline...</p>}>
             <Await
               resolve={Timeline}
@@ -70,15 +70,15 @@ const About = () => {
                 Object.keys(Timeline)
                   .sort((a, b) => (a > b ? -1 : 1))
                   .map((item) => (
-                    <div key={item} class="mt-8 flex flex-col">
-                      <span class="text-lg font-semibold text-zinc-600 dark:text-gray-400">{item}</span>
+                    <div key={item} className="mt-8 flex flex-col">
+                      <span className="text-lg font-semibold text-zinc-600 dark:text-gray-400">{item}</span>
                       {Timeline[item].map((exp) => (
-                        <div key={exp.content.Title} class="relative mt-5 flex flex-row items-start space-x-5">
-                          <div class="mt-1 h-[12px] w-[12px]">
+                        <div key={exp.content.Title} className="relative mt-5 flex flex-row items-start space-x-5">
+                          <div className="mt-1 h-[12px] w-[12px]">
                             <Heart width={12} height={21} />
                           </div>
-                          <div class="flex flex-col">
-                            <span class="text-md font-semibold text-zinc-600 dark:text-gray-400 sm:text-lg">{exp.content.Title}</span>
+                          <div className="flex flex-col">
+                            <span className="text-md font-semibold text-zinc-600 dark:text-gray-400 sm:text-lg">{exp.content.Title}</span>
                             <div className="font-light text-slate-600 dark:text-slate-400" dangerouslySetInnerHTML={{ __html: exp.renderedText }} />
                           </div>
                         </div>
