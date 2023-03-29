@@ -39,13 +39,13 @@ export async function loader() {
           await getStories(1, Storyblok)
           resolve(Timeline)
         } catch (e) {
-          console.log(e)
+          console.log(e.message || e.toString())
           reject(e)
         }
       }),
     })
   } catch (e) {
-    console.log(e)
+    console.log(e.message || e.toString())
     throw new Response('Not Found', {
       status: 404,
     })

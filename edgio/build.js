@@ -18,13 +18,13 @@ module.exports = async function build() {
       try {
         await builder.addJSAsset(`${appDir}/${i}`)
       } catch (e) {
-        console.log(e)
+        console.log(e.message || e.toString())
       }
     })
     await builder.build()
     await cleanBinaries(builder)
   } catch (e) {
-    console.log(e)
+    console.log(e.message || e.toString())
   }
 }
 

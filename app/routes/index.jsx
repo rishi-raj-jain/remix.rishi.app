@@ -8,7 +8,7 @@ export async function loader() {
     const { data } = await Storyblok.get('cdn/stories/taglines/home')
     return Storyblok.richTextResolver.render(data.story.content.Text)
   } catch (e) {
-    console.log(e)
+    console.log(e.message || e.toString())
     throw new Response('Not Found', {
       status: 404,
     })
