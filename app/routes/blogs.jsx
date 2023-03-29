@@ -4,8 +4,8 @@ import { ClientOnly } from 'remix-utils'
 import Layout from '../components/Layout'
 import { Storyblok } from '../lib/storyblok.server'
 import SearchBar from '../components/SearchBar.client'
-import { Await, useLoaderData } from '@remix-run/react'
 import DateString from '../components/DateString.client'
+import { Await, Link, useLoaderData } from '@remix-run/react'
 
 export async function loader() {
   return defer({
@@ -86,15 +86,15 @@ export default function Blogs() {
                   )}
                 </ClientOnly>
                 {item && item.content && (
-                  <a href={`/blog/${item.slug}`} className={`mt-3 text-lg font-bold hover:underline sm:text-2xl`}>
+                  <Link href={`/blog/${item.slug}`} className={`mt-3 text-lg font-bold hover:underline sm:text-2xl`}>
                     {item.content.title}
-                  </a>
+                  </Link>
                 )}
                 {item && item.content && <span className={`mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400`}>{item.content.intro}</span>}
                 {item && item.slug && (
-                  <a href={`/blog/${item.slug}`} className={`mt-5 text-sm uppercase text-blue-500 hover:underline`}>
+                  <Link href={`/blog/${item.slug}`} className={`mt-5 text-sm uppercase text-blue-500 hover:underline`}>
                     Read More &rarr;
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
